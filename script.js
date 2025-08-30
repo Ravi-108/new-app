@@ -5,7 +5,9 @@ window.addEventListener("load", () => fetchNews("India"));
 
 async function fetchNews(query) {
   try {
-    const response = await fetch(`${API_URL}${query}&apiKey=${API_KEY}`);
+    const response = await fetch(
+      `https://api.allorigins.win/get?url=${encodeURIComponent(API_URL + query + "&apiKey=" + API_KEY)}`
+    );
     const data = await response.json();
     displayNews(data.articles);
   } catch (error) {
