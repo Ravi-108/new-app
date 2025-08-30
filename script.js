@@ -5,14 +5,12 @@ window.addEventListener("load", () => fetchNews("India"));
 
 async function fetchNews(query) {
   try {
-    const proxyUrl = "https://api.allorigins.win/get?url=";
+    // Use a different proxy (since AllOrigins fails with 500)
+    const proxyUrl = "https://thingproxy.freeboard.io/fetch/";
     const targetUrl = `${API_URL}${query}&apiKey=${API_KEY}`;
 
-    const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
-    const result = await response.json();
-
-    // Parse the actual NewsAPI response
-    const data = JSON.parse(result.contents);
+    const response = await fetch(proxyUrl + targetUrl);
+    const data = await response.json();
 
     // Now you can access articles directly
     displayNews(data.articles);
