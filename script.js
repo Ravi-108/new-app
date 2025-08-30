@@ -5,14 +5,16 @@ window.addEventListener("load", () => fetchNews("India"));
 
 async function fetchNews(query) {
   try {
-    // Use AllOrigins proxy
     const proxyUrl = "https://api.allorigins.win/get?url=";
     const targetUrl = `${API_URL}${query}&apiKey=${API_KEY}`;
 
     const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
     const result = await response.json();
-    const data = JSON.parse(result.contents); // parse NewsAPI JSON
 
+    // Parse the actual NewsAPI response
+    const data = JSON.parse(result.contents);
+
+    // Now you can access articles directly
     displayNews(data.articles);
   } catch (error) {
     console.error("Error fetching news:", error);
