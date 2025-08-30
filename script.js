@@ -4,47 +4,30 @@ const API_URL = "https://newsapi.org/v2/everything?q=";
 window.addEventListener("load", () => fetchNews("India"));
 
 async function fetchNews(query) {
-  try {
-    // Use a different proxy (since AllOrigins fails with 500)
-    const proxyUrl = "https://thingproxy.freeboard.io/fetch/";
-    const targetUrl = `${API_URL}${query}&apiKey=${API_KEY}`;
-
-
-    const response = await fetch(proxyUrl + targetUrl);
-    const data = await response.json();
-
-    // Now you can access articles directly
-    displayNews(data.articles);
-  } catch (error) {
-    console.error("Error fetching news:", error);
-  }
+    try {
+        const response = await fetch(`${API_URL}${query}&apiKey=${API_KEY}`);
+        const data = await response.json();
+        displayNews(data.articles);
+    } catch (error) {
+        console.error("Error fetching news:", error);
+    }
 }
 
 function displayNews(articles) {
-  const template = document.getElementById("template-news-card");
-  const newsContainer = document.getElementById("news-container");
+    const template = document.getElementById("template-news-card");
+    const newsContainer = document.getElementById("news-container");
 
-  newsContainer.innerHTML = ""; // clear previous results
+    newsContainer.innerHTML = ""; // clear previous results
 
-  articles.forEach((article) => {
-    if (!article.urlToImage) return; // skip if no image
-    const clone = template.content.cloneNode(true);
+    articles.forEach(article => {
+        if (!article.urlToImage) return; // skip if no image
+        const clone = template.content.cloneNode(true);
 
-    clone.querySelector("img").src = article.urlToImage;
-    clone.querySelector("img").alt = article.title;
-    clone.querySelector("h2").textContent = article.title;
-    clone.querySelector("p").textContent =
-      article.description || "No description available";
-    clone.firstElementChild.addEventListener("click", () => {
-      window.open(article.url, "_blank");
+        clone.querySelector("img").src = article.urlToImage;
+        clone.querySelector("img").alt = article.title;
+        clone.querySelector("h2").textContent = article.title;
+        clone.querySelector("p").textContent = article.description || "No description available";
+
+        newsContainer.appendChild(clone);
     });
-    newsContainer.appendChild(clone);
-  });
 }
-
-const searchNews = (query) => {
-  const newsContainer = document.getElementById("news-container");
-  if (!query) return;
-  newsContainer.innerHTML = ""; // clear previous results
-  fetchNews(query);
-};
