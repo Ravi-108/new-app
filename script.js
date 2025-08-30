@@ -19,7 +19,7 @@ function displayNews(articles) {
 
   newsContainer.innerHTML = ""; // clear previous results
 
-  articles.forEach((article) => {
+  articles.forEach((article) => { 
     if (!article.urlToImage) return; // skip if no image
     const clone = template.content.cloneNode(true);
 
