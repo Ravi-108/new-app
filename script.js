@@ -5,10 +5,14 @@ window.addEventListener("load", () => fetchNews("India"));
 
 async function fetchNews(query) {
   try {
-    const response = await fetch(
-      `https://api.allorigins.win/get?url=${encodeURIComponent(API_URL + query + "&apiKey=" + API_KEY)}`
-    );
-    const data = await response.json();
+    // Use AllOrigins proxy
+    const proxyUrl = "https://api.allorigins.win/get?url=";
+    const targetUrl = `${API_URL}${query}&apiKey=${API_KEY}`;
+
+    const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+    const result = await response.json();
+    const data = JSON.parse(result.contents); // parse NewsAPI JSON
+
     displayNews(data.articles);
   } catch (error) {
     console.error("Error fetching news:", error);
@@ -21,7 +25,7 @@ function displayNews(articles) {
 
   newsContainer.innerHTML = ""; // clear previous results
 
-  articles.forEach((article) => { 
+  articles.forEach((article) => {
     if (!article.urlToImage) return; // skip if no image
     const clone = template.content.cloneNode(true);
 
@@ -35,14 +39,11 @@ function displayNews(articles) {
     });
     newsContainer.appendChild(clone);
   });
-
-
-
 }
 
 const searchNews = (query) => {
   const newsContainer = document.getElementById("news-container");
-  if(!query) return;
+  if (!query) return;
   newsContainer.innerHTML = ""; // clear previous results
   fetchNews(query);
-}
+};
