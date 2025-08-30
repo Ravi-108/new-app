@@ -10,7 +10,7 @@ async function fetchNews(query) {
     const targetUrl = `${API_URL}${query}&apiKey=${API_KEY}`;
 
 
-    const response = await fetch(proxyUrl + targetUrl);
+    const response = await fetch(targetUrl);
     const data = await response.json();
 
     // Now you can access articles directly
