@@ -14,15 +14,25 @@
     <nav>
         <div class="main-nav container flex">
             <a href="#" class="company-logo">
-                <img src="assets/Screenshot 2025-08-24 111009-Photoroom.png" alt="Company logo">
+                <img src="assets/Screenshot 2025-08-31 153651.png" alt="Company logo">
             </a>
         </div>
 
-        <div class="nav-links">
+                <!-- Hamburger menu button -->
+        <button id="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+
+
+        <div class="nav-links" id= "nav-links">
             <ul class="flex">
                 <li class="hover-link-nav-items" id="IPL" onclick="searchNews('IPL')">IPL</li>
                 <li class="hover-link-nav-items" id="POLITICS" onclick="searchNews('POLITICS')">POLITICS</li>
-                <li class="hover-link-nav-items" id="ENTERTAINMENT" onclick="searchNews('ENTERTAINMENT')">ENTERTAINMENT</li>
+                <li class="hover-link-nav-items" id="ENTERTAINMENT" onclick="searchNews('ENTERTAINMENT')">ENTERTAINMENT
+                </li>
             </ul>
         </div>
 
@@ -30,22 +40,24 @@
             <input type="text" class="news-input" placeholder="e.g. Science">
             <button class="search-button">Search</button>
         </div>
+
     </nav>
 
-    
+
     <main>
-         <div id="news-container"></div>
+        <div id="news-container"></div>
 
         <template id="template-news-card">
             <article class="news-card">
                 <img src="" alt="News Image">
                 <h2>News Title</h2>
                 <p>Short description of news.</p>
+                <span class="news-source"></span>
             </article>
         </template>
-            
-       
-        
+
+
+
 
     </main>
 
